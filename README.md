@@ -205,14 +205,46 @@ lib/
 
 For the assignment submission, create a demo video showing:
 
-1. **User Registration**: Create a new user account
-2. **User Login**: Sign in with the created credentials
-3. **Empty State**: Show the "Nothing here yet—tap ➕ to add a note" message
-4. **Create Notes**: Add multiple notes and show them appearing in Firestore
-5. **Read Notes**: Display existing notes in the UI
-6. **Update Notes**: Edit a note and show the change in Firestore
-7. **Delete Notes**: Remove a note and confirm deletion in Firestore
-8. **Firebase Console**: Show the data in Firebase Auth and Firestore
+### Recording Setup (5-10 minutes, 720p+)
+- Record in **landscape mode** on phone/emulator
+- Show your **face** during narration
+- Use **clear audio** without background noise
+- Record in **one continuous take** (no edits)
+
+### Demo Sequence
+1. **Cold Start**: Launch app from fresh install
+2. **Sign Up**: Create new account with email/password
+3. **Sign In**: Log in with created credentials  
+4. **Empty State**: Show "Nothing here yet—tap ➕ to add a note." message
+5. **Add Notes**: Create 3-4 different notes
+6. **Firestore Console**: Show notes appearing in real-time in Firebase console
+7. **Read Notes**: Scroll through note list
+8. **Update Note**: Edit an existing note and show changes in Firestore
+9. **Delete Note**: Remove a note with confirmation dialog
+10. **Rotation Test**: Rotate device to show responsive design
+11. **Logout/Login**: Sign out and back in to show persistence
+
+### Error Demonstration
+Show these validation scenarios:
+- Invalid email format
+- Weak password (under 6 chars or missing requirements)
+- Wrong password on login
+- Empty fields
+
+### Firebase Console Views
+During recording, show:
+- **Authentication** tab with user account
+- **Firestore Database** with real-time note updates
+- **Project Overview** confirming correct project
+
+### Technical Checklist
+- ✅ No setState usage (pure BLoC)
+- ✅ Repository pattern implementation
+- ✅ Clean architecture separation
+- ✅ Proper error handling with SnackBars
+- ✅ Loading states and transitions
+- ✅ Input validation
+- ✅ Responsive UI design
 
 ## Assignment Requirements Checklist
 
