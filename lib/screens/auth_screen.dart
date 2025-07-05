@@ -61,8 +61,16 @@ class _AuthScreenState extends State<AuthScreen> {
                     if (state.errorMessage != null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(state.errorMessage!),
+                          content: Row(
+                            children: [
+                              const Icon(Icons.error_outline, color: Colors.white),
+                              const SizedBox(width: 8),
+                              Expanded(child: Text(state.errorMessage!)),
+                            ],
+                          ),
                           backgroundColor: Colors.red,
+                          behavior: SnackBarBehavior.floating,
+                          duration: const Duration(seconds: 4),
                         ),
                       );
                     }
