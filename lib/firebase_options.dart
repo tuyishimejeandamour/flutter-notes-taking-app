@@ -82,9 +82,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions linux = FirebaseOptions(
-    apiKey: 'AIzaSyDKGq_4N8VVNLfJ6BaKAL0vGPnrUqFE5zA',
-    appId: '1:123456789:linux:abcdef',
-    messagingSenderId: '123456789',
-    projectId: 'notes-app-flutter-demo',
+    apiKey: 'AIzaSyAk4eD5FNOt5fCHChizGsGGsK0ZYz9p7mE',
+    appId: '1:943799206739:linux:4057bcb3d4c54df52dd7a6',
+    messagingSenderId: '943799206739',
+    projectId: 'notes-assignment-app',
+    authDomain: 'notes-assignment-app.firebaseapp.com',
+    storageBucket: 'notes-assignment-app.firebasestorage.app',
   );
 }
