@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "943799206739",
+    "project_id": "notes-assignment-app",
+    "storage_bucket": "notes-assignment-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943799206739:android:2820028b8b0de7b52dd7a6",
+        "android_client_info": {
+          "package_name": "com.example.personalassignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy6QA806w44-fXfsm_xGXvNn3Vw1mlIkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
