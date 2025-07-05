@@ -40,12 +40,19 @@ class _AddNoteDialogState extends State<AddNoteDialog> {
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            widget.initialText != null 
-                ? 'Note updated successfully!' 
-                : 'Note added successfully!',
+          content: Row(
+            children: [
+              const Icon(Icons.check_circle, color: Colors.white),
+              const SizedBox(width: 8),
+              Text(
+                widget.initialText != null 
+                    ? 'Note updated successfully!' 
+                    : 'Note added successfully!',
+              ),
+            ],
           ),
           backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
         ),
       );
     }

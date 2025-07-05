@@ -33,8 +33,15 @@ class NoteItem extends StatelessWidget {
               // Show success message
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Note deleted successfully!'),
+                  content: Row(
+                    children: [
+                      Icon(Icons.delete_forever, color: Colors.white),
+                      SizedBox(width: 8),
+                      Text('Note deleted successfully!'),
+                    ],
+                  ),
                   backgroundColor: Colors.green,
+                  behavior: SnackBarBehavior.floating,
                 ),
               );
             },
