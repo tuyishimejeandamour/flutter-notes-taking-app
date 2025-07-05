@@ -12,6 +12,124 @@ A Flutter application for taking notes with Firebase authentication and Firestor
 
 ## Architecture
 
+The app follows a clean architecture pattern with clear separation of concerns:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Presentation Layer                          │
+│  ┌─────────────────┐    ┌─────────────────┐                    │
+│  │   AuthScreen    │    │   NotesScreen   │                    │
+│  │                 │    │                 │                    │
+│  └─────────────────┘    └─────────────────┘                    │
+│           │                        │                           │
+│           ▼                        ▼                           │
+│  ┌─────────────────┐    ┌─────────────────┐                    │
+│  │    AuthBloc     │    │   NotesBloc     │                    │
+│  │                 │    │                 │                    │
+│  └─────────────────┘    └─────────────────┘                    │
+└─────────────────────────────────────────────────────────────────┘
+           │                        │
+           ▼                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Domain Layer                                │
+│  ┌─────────────────┐    ┌─────────────────┐                    │
+│  │ AuthRepository  │    │ NotesRepository │                    │
+│  │                 │    │                 │                    │
+│  └─────────────────┘    └─────────────────┘                    │
+└─────────────────────────────────────────────────────────────────┘
+           │                        │
+           ▼                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      Data Layer                                 │
+│  ┌─────────────────┐    ┌─────────────────┐                    │
+│  │ Firebase Auth   │    │ Cloud Firestore │                    │
+│  │                 │    │                 │                    │
+│  └─────────────────┘    └─────────────────┘                    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### BLoC State Management
+
+This application uses the **BLoC (Business Logic Component) pattern** for state management. Here's how to implement it:
+
+1. **Install Dependencies**:
+   ```yaml
+   dependencies:
+     flutter_bloc: ^8.1.6
+     equatable: ^2.0.5
+   ```
+
+2. **Create Events** (what can happen):
+   ```dart
+   abstract class AuthEvent extends Equatable {
+     const AuthEvent();
+   }
+   
+   class AuthSignInRequested extends AuthEvent {
+     final String email;
+     final String password;
+     // ...
+   }
+   ```
+
+3. **Create States** (what the UI can be in):
+   ```dart
+   class AuthState extends Equatable {
+     final AuthStatus status;
+     final User? user;
+     final String? errorMessage;
+     // ...
+   }
+   ```
+
+4. **Create BLoC** (handles events and emits states):
+   ```dart
+   class AuthBloc extends Bloc<AuthEvent, AuthState> {
+     AuthBloc() : super(AuthState.unknown()) {
+       on<AuthSignInRequested>(_onAuthSignInRequested);
+     }
+     
+     Future<void> _onAuthSignInRequested(event, emit) async {
+       emit(AuthState.loading());
+       try {
+         final user = await authRepository.signIn(event.email, event.password);
+         emit(AuthState.authenticated(user));
+       } catch (e) {
+         emit(AuthState.error(e.toString()));
+       }
+     }
+   }
+   ```
+
+5. **Use BLoC in UI**:
+   ```dart
+   BlocBuilder<AuthBloc, AuthState>(
+     builder: (context, state) {
+       if (state.status == AuthStatus.loading) {
+         return CircularProgressIndicator();
+       }
+       // Handle other states...
+     },
+   )
+   ```
+
+**Key Benefits of BLoC:**
+- Separates business logic from UI
+- Makes testing easier
+- Provides predictable state management
+- Enables reactive programming
+- Maintains single source of truth
+
+**Repository Pattern Integration:**
+The BLoC layer communicates with Repository classes that handle data operations:
+- `AuthRepository`: Manages Firebase Authentication
+- `NotesRepository`: Handles Firestore CRUD operations
+
+This creates a clean separation where:
+- UI only knows about BLoC
+- BLoC only knows about Repository
+- Repository handles external services (Firebase)
+
 The app follows a clean architecture pattern with:
 
 - **Models**: Data structures for Note objects
