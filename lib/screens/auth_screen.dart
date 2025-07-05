@@ -138,6 +138,12 @@ class _AuthScreenState extends State<AuthScreen> {
                               if (value.length < 6) {
                                 return 'Password must be at least 6 characters';
                               }
+                              // Check for stronger password requirements
+                              if (_isSignUp) {
+                                if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)').hasMatch(value)) {
+                                  return 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
+                                }
+                              }
                               return null;
                             },
                           ),
