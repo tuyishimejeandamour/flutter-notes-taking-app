@@ -11,6 +11,7 @@ import 'bloc/notes_bloc.dart';
 import 'screens/auth_screen.dart';
 import 'screens/notes_screen.dart';
 
+// Main entry point of the application
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
