@@ -89,12 +89,28 @@ class _NotesScreenState extends State<NotesScreen> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.0),
+          child: Container(
+            color: Colors.grey.shade200,
+            height: 1.0,
+          ),
+        ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              context.read<AuthBloc>().add(AuthSignOutRequested());
-            },
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.logout, color: Color(0xFF6B7280)),
+              onPressed: () {
+                context.read<AuthBloc>().add(AuthSignOutRequested());
+              },
+            ),
           ),
         ],
       ),
@@ -110,8 +126,11 @@ class _NotesScreenState extends State<NotesScreen> {
                     Expanded(child: Text(state.errorMessage!)),
                   ],
                 ),
-                backgroundColor: Colors.red,
+                backgroundColor: const Color(0xFFEF4444),
                 behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             );
           }
@@ -119,7 +138,9 @@ class _NotesScreenState extends State<NotesScreen> {
         builder: (context, state) {
           if (state.status == NotesStatus.loading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Color(0xFF6366F1),
+              ),
             );
           }
 
@@ -128,18 +149,33 @@ class _NotesScreenState extends State<NotesScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.note_add_outlined,
-                    size: 80,
-                    color: Colors.grey[400],
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF6366F1).withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.note_add_outlined,
+                      size: 48,
+                      color: const Color(0xFF6366F1),
+                    ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
                   Text(
-                    'Nothing here yet—tap ➕ to add a note.',
+                    'Nothing here yet',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
+                      color: Colors.grey[800],
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Tap the + button to add your first note',
+                    style: TextStyle(
+                      fontSize: 16,
                       color: Colors.grey[600],
-                      fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -162,10 +198,23 @@ class _NotesScreenState extends State<NotesScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddNoteDialog,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(Icons.add, color: Colors.white),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF6366F1).withValues(alpha: 0.3),
+              blurRadius: 15,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: FloatingActionButton(
+          onPressed: _showAddNoteDialog,
+          backgroundColor: const Color(0xFF6366F1),
+          elevation: 0,
+          child: const Icon(Icons.add, color: Colors.white, size: 28),
+        ),
       ),
     );
   }
